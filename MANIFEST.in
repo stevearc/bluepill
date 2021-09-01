@@ -1,0 +1,3 @@
+include README.md CHANGES.md requirements_test.txt
+recursive-exclude tests *
+recursive-exclude bin *

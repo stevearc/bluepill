@@ -1,0 +1,6 @@
+black
+docutils
+isort
+mypy
+types-pyyaml
+pylint==2.9.5
