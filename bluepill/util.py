@@ -1,4 +1,4 @@
-from typing import Any, Callable, List, Tuple, TypeVar, cast
+from typing import Any, Callable, TypeVar, cast
 
 NO_DEFAULT = object()
 
@@ -19,23 +19,6 @@ def prompt(
             return default
         if validate is None or validate(response):
             return response
-
-
-def prompt_list(text: str, choices: List[Tuple[T, str]], default: T = None) -> T:
-    """Prompt the user to choose one of a list of options"""
-    while True:
-        for i, [_, option] in enumerate(choices):
-            print("[%d] %s" % (i + 1, option))
-        response = prompt(text, default="__none__")
-        if default is not None and response == "__none__":
-            return default
-        try:
-            idx = int(response) - 1
-            if 0 <= idx < len(choices):
-                return choices[idx][0]
-        except (ValueError, IndexError):
-            pass
-        print("Invalid choice\n")
 
 
 def confirm(msg: str, default: bool = None) -> bool:

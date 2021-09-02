@@ -38,16 +38,15 @@ class DeleteCmd(Command):
             nargs="?",
             help="Name of the container/image (if omitted, will use a unique name generated from the current directory)",
         )
-        parser.add_argument("-i", action="store_true", help="Delete the image")
+        parser.add_argument("-i", action="store_true", help="Delete the image as well")
         parser.add_argument("-f", "--force", action="store_true", help="Force delete")
 
     def run(self) -> None:
+        container = self.get_container(self._container_name)
+        if container is not None:
+            container.remove(force=self._force)
+            print(f"Deleted container {container.name}")
         if self._del_image:
             if self.has_image(self._image_name):
                 self.client.images.remove(self._image_name, force=self._force)
                 print(f"Deleted image {self._image_name}")
-        else:
-            container = self.get_container(self._container_name)
-            if container is not None:
-                container.remove(force=self._force)
-                print(f"Deleted container {container.name}")
