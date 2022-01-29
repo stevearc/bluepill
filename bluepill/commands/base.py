@@ -142,10 +142,10 @@ class Command(ABC):
         else:
             text = BytesIO(
                 f"""FROM {source_image}
-RUN groupadd -g {gid} {user} && \
-  useradd -m -u {uid} -g {gid} -s /bin/bash {user} && \
-  apt-get update -q && \
+RUN apt-get update -q && \
   apt-get install -y -q sudo && \
+  groupadd -g {gid} {user} && \
+  useradd -m -u {uid} -g {gid} -s /bin/bash {user} && \
   echo "{user} ALL = (ALL) NOPASSWD: ALL" >> /etc/sudoers.d/user
 ENTRYPOINT ["/bin/bash", "-l"]
 """.encode(
