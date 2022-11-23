@@ -1,6 +1,6 @@
 import sys
 from argparse import ArgumentParser
-from typing import Any
+from typing import Any, Optional
 
 from docker import DockerClient
 
@@ -13,7 +13,7 @@ class CommitCmd(Command):
         self,
         client: DockerClient,
         config: Config,
-        name: str = None,
+        name: Optional[str] = None,
         **kwargs: Any,
     ):
         super().__init__(client, config, **kwargs)

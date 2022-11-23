@@ -1,5 +1,5 @@
 from argparse import ArgumentParser
-from typing import Any
+from typing import Any, Optional
 
 from docker import DockerClient
 
@@ -13,7 +13,7 @@ class HelpCmd(Command):
         client: DockerClient,
         config: Config,
         root_parser: ArgumentParser,
-        cmd: str = None,
+        cmd: Optional[str] = None,
         **kwargs: Any,
     ):
         super().__init__(client, config, **kwargs)

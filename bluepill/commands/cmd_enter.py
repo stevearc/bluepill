@@ -1,5 +1,5 @@
 from argparse import ArgumentParser
-from typing import Any
+from typing import Any, Optional
 
 import dockerpty
 from docker import DockerClient
@@ -13,7 +13,7 @@ class EnterCmd(Command):
         self,
         client: DockerClient,
         config: Config,
-        name: str = None,
+        name: Optional[str] = None,
         image: str = "",
         **kwargs: Any,
     ):

@@ -1,5 +1,5 @@
 from argparse import ArgumentParser
-from typing import Any
+from typing import Any, Optional
 
 from docker import DockerClient
 
@@ -13,7 +13,7 @@ class BuildCmd(Command):
         self,
         client: DockerClient,
         config: Config,
-        name: str = None,
+        name: Optional[str] = None,
         image: str = "",
         replace: bool = False,
         **kwargs: Any,

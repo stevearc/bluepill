@@ -1,4 +1,4 @@
-from typing import Any, Callable, TypeVar, cast
+from typing import Any, Callable, Optional, TypeVar, cast
 
 NO_DEFAULT = object()
 
@@ -8,7 +8,7 @@ T = TypeVar("T")
 def prompt(
     msg: str,
     default: str = cast(Any, NO_DEFAULT),
-    validate: Callable[[str], bool] = None,
+    validate: Optional[Callable[[str], bool]] = None,
 ) -> str:
     """Prompt user for input"""
     while True:
@@ -21,7 +21,7 @@ def prompt(
             return response
 
 
-def confirm(msg: str, default: bool = None) -> bool:
+def confirm(msg: str, default: Optional[bool] = None) -> bool:
     """Display a blocking prompt until the user confirms"""
     while True:
         yes = "Y" if default else "y"

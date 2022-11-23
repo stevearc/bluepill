@@ -41,7 +41,7 @@ def add_parser_commands(
     config: Config,
     commands: Sequence[Type["Command"]],
     command_name: str,
-    default_command: Type["Command"] = None,
+    default_command: Optional[Type["Command"]] = None,
 ) -> None:
     if default_command is not None:
         parser.set_defaults(**{command_name: default_command})
@@ -85,12 +85,12 @@ class Command(ABC):
     def run(self) -> None:
         raise NotImplementedError
 
-    def get_hostname(self, name: str = None) -> str:
+    def get_hostname(self, name: Optional[str] = None) -> str:
         if name is not None:
             return name
         return os.path.basename(os.path.abspath(os.getcwd()))
 
-    def get_unique_dir_name(self, name: str = None) -> str:
+    def get_unique_dir_name(self, name: Optional[str] = None) -> str:
         if name is not None:
             return name
         curdir = os.path.realpath(os.path.abspath(os.getcwd()))

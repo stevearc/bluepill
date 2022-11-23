@@ -12,7 +12,7 @@ import tarfile
 import tempfile
 import venv
 from contextlib import contextmanager
-from typing import Iterator
+from typing import Iterable, Iterator, Optional
 from urllib.request import urlretrieve
 
 
@@ -59,7 +59,7 @@ def build_exe(ref: str, venv_dir: str, workdir: str, dest: str) -> None:
             if package_dir is None:
                 raise Exception("Downloaded github archive is malformed")
 
-            def is_within_directory(directory, target):
+            def is_within_directory(directory: str, target: str) -> bool:
 
                 abs_directory = os.path.abspath(directory)
                 abs_target = os.path.abspath(target)
@@ -68,7 +68,13 @@ def build_exe(ref: str, venv_dir: str, workdir: str, dest: str) -> None:
 
                 return prefix == abs_directory
 
-            def safe_extract(tar, path=".", members=None, *, numeric_owner=False):
+            def safe_extract(
+                tar: tarfile.TarFile,
+                path: str = ".",
+                members: Optional[Iterable[tarfile.TarInfo]] = None,
+                *,
+                numeric_owner: bool = False,
+            ) -> None:
 
                 for member in tar.getmembers():
                     member_path = os.path.join(path, member.name)
